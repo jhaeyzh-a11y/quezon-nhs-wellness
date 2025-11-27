@@ -1,9 +1,8 @@
-// Service Worker for offline functionality
-const CACHE_NAME = 'wellness-app-v1';
+const CACHE_NAME = 'wellness-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json'
+  'https://jhaeyzh-a11y.github.io/quezon-nhs-wellness/',
+  'https://jhaeyzh-a11y.github.io/quezon-nhs-wellness/index.html',
+  'https://jhaeyzh-a11y.github.io/quezon-nhs-wellness/manifest.json'
 ];
 
 self.addEventListener('install', event => {
