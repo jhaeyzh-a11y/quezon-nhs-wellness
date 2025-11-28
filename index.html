@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WellnessApp - Quezon NHS Student Health</title>
-    <meta name="description" content="Daily wellness check for Quezon National High School students">
+    <title>WellnessApp - Daily Wellness Check</title>
+    <meta name="description" content="Daily wellness check for students">
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
@@ -13,326 +13,67 @@
     <meta name="theme-color" content="#3367D6">
     
     <!-- Icons -->
-    <link rel="icon" href="icons/icon-192.png">
-    <link rel="apple-touch-icon" href="icons/icon-192.png">
-    
-    <!-- iOS Meta Tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="WellnessApp">
+    <link rel="icon" href="icon-192.png">
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            color: #333;
-        }
-
-        .container {
+            font-family: Arial, sans-serif;
             max-width: 400px;
             margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
         }
-
-        header {
+        .header {
             text-align: center;
             margin-bottom: 30px;
-            color: white;
         }
-
-        header h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        header p {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        .school-badge {
-            background: rgba(255,255,255,0.2);
-            padding: 10px 20px;
-            border-radius: 25px;
-            display: inline-block;
-            margin-top: 10px;
-            font-size: 0.9rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .wellness-card {
+        .card {
             background: white;
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            text-align: center;
-        }
-
-        .wellness-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #3367D6, #4285F4);
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.8rem;
-        }
-
-        .wellness-card h2 {
-            color: #3367D6;
-            margin-bottom: 12px;
-            font-size: 1.3rem;
-        }
-
-        .last-tested {
-            color: #666;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-        }
-
-        .view-log-btn {
-            background: linear-gradient(135deg, #3367D6, #4285F4);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s;
-            width: 100%;
-        }
-
-        .view-log-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin: 20px 0;
-        }
-
-        .feature-item {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid #e9ecef;
-        }
-
-        .feature-icon {
-            font-size: 1.5rem;
-            margin-bottom: 8px;
-        }
-
-        .feature-item span {
-            font-size: 0.8rem;
-            color: #666;
-            font-weight: 500;
-        }
-
-        .package-section {
-            background: white;
-            border-radius: 20px;
             padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
-        .package-section h3 {
-            color: #3367D6;
-            margin-bottom: 15px;
-            text-align: center;
-            font-size: 1.2rem;
-        }
-
-        .download-btn {
-            background: linear-gradient(135deg, #34A853, #0F9D58);
+        button {
+            background: #3367D6;
             color: white;
             border: none;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
             width: 100%;
-            margin-bottom: 15px;
-            transition: transform 0.2s;
-        }
-
-        .download-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .stores-section h4 {
-            color: #3367D6;
-            margin-bottom: 10px;
-            font-size: 1rem;
-        }
-
-        .store-icons {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-
-        .store-icon {
-            flex: 1;
-            background: #f5f5f5;
-            padding: 8px;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 0.75rem;
-            color: #666;
-            font-weight: 500;
-        }
-
-        .stores-section p {
-            color: #666;
-            font-size: 0.8rem;
-            text-align: center;
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 15px;
-            }
-            
-            header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .wellness-card, .package-section {
-                padding: 20px;
-            }
-        }
-
-        .loading {
-            opacity: 0.7;
-            pointer-events: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>WellnessApp</h1>
-            <p>Daily wellness check for students</p>
-            <div class="school-badge">Quezon National High School</div>
-        </header>
+    <div class="header">
+        <h1>WellnessApp</h1>
+        <p>Daily wellness check for students</p>
+    </div>
 
-        <main>
-            <div class="wellness-card">
-                <div class="wellness-icon">❤️</div>
-                <h2>Share Wellness Score</h2>
-                <p class="last-tested">Last tested <span id="time-ago">seconds ago</span></p>
-                <button class="view-log-btn">View Health Log</button>
-            </div>
+    <div class="card">
+        <h2>Share score</h2>
+        <p>Last tested <span id="time">seconds ago</span></p>
+        <button onclick="testWellness()">View log</button>
+    </div>
 
-            <div class="features-grid">
-                <div class="feature-item">
-                    <div class="feature-icon">📊</div>
-                    <span>Health Reports</span>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🔔</div>
-                    <span>Alerts</span>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🏥</div>
-                    <span>Clinic</span>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">📚</div>
-                    <span>Resources</span>
-                </div>
-            </div>
-
-            <div class="package-section">
-                <h3>Student Wellness Package</h3>
-                <button class="download-btn">Download Test Package</button>
-                
-                <div class="stores-section">
-                    <h4>Available stores:</h4>
-                    <div class="store-icons">
-                        <div class="store-icon">App Store</div>
-                        <div class="store-icon">Play Store</div>
-                        <div class="store-icon">Web</div>
-                    </div>
-                    <p>Filter through notifications</p>
-                </div>
-            </div>
-        </main>
+    <div class="card">
+        <h3>Package For Stores</h3>
+        <button>Download Test Package</button>
+        <p><strong>Available stores:</strong></p>
+        <p>Filter through notifications</p>
     </div>
 
     <script>
-        // Register Service Worker
+        function testWellness() {
+            document.getElementById('time').textContent = 'just now';
+            alert('Wellness test completed!');
+        }
+
+        // Service Worker Registration
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/quezon-nhs-wellness/sw.js')
-                    .then(function(registration) {
-                        console.log('SW registered: ', registration.scope);
-                    })
-                    .catch(function(error) {
-                        console.log('SW failed: ', error);
-                    });
-            });
+            navigator.serviceWorker.register('sw.js');
         }
-
-        // Update time display
-        function updateTimeAgo() {
-            const timeAgoElement = document.getElementById('time-ago');
-            if (timeAgoElement) {
-                const lastTested = localStorage.getItem('lastTested');
-                if (lastTested) {
-                    const diff = Math.floor((Date.now() - parseInt(lastTested)) / 1000);
-                    if (diff < 60) timeAgoElement.textContent = `${diff} seconds ago`;
-                    else if (diff < 3600) timeAgoElement.textContent = `${Math.floor(diff / 60)} minutes ago`;
-                    else timeAgoElement.textContent = `${Math.floor(diff / 3600)} hours ago`;
-                } else {
-                    timeAgoElement.textContent = 'never';
-                }
-            }
-        }
-
-        // Event listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            updateTimeAgo();
-            
-            document.querySelector('.view-log-btn').addEventListener('click', function() {
-                this.classList.add('loading');
-                setTimeout(() => {
-                    this.classList.remove('loading');
-                    localStorage.setItem('lastTested', Date.now().toString());
-                    updateTimeAgo();
-                    alert('Wellness check completed! Score shared successfully.');
-                }, 1500);
-            });
-            
-            document.querySelector('.download-btn').addEventListener('click', function() {
-                this.classList.add('loading');
-                setTimeout(() => {
-                    this.classList.remove('loading');
-                    alert('Wellness Package download started!');
-                }, 2000);
-            });
-
-            setInterval(updateTimeAgo, 60000);
-        });
     </script>
 </body>
 </html>
