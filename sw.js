@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wellness-v1';
+const CACHE_NAME = 'qnhs-wellness-v1';
 const urlsToCache = [
   '/quezon-nhs-wellness/',
   '/quezon-nhs-wellness/index.html',
