@@ -3,6 +3,8 @@
 <head>
     <title>Quezon NHS Daily Wellness Check</title>
     <style>
+        <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4CAF50">
         body {
             font-family: Arial, sans-serif;
             max-width: 500px;
@@ -466,8 +468,15 @@
             updateProgress(25);
         }
 
+        <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+    }
+</script>
+        
         // Initialize
         updateProgress(25);
     </script>
 </body>
 </html>
+
