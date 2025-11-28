@@ -1,9 +1,10 @@
 {
   "name": "Quezon NHS Wellness Check",
   "short_name": "WellnessApp",
-  "description": "Daily wellness check for students",
-  "start_url": "./",
-  "display": "standalone", 
+  "description": "Daily wellness check for Quezon NHS students",
+  "start_url": "/quezon-nhs-wellness/",
+  "display": "standalone",
   "background_color": "#f0f8ff",
-  "theme_color": "#4CAF50"
+  "theme_color": "#4CAF50",
+  "scope": "/quezon-nhs-wellness/"
 }
