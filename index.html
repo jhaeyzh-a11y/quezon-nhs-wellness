@@ -1,489 +1,464 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Quezon NHS Daily Wellness Check</title>
-    <!-- ADD MANIFEST LINK -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#4CAF50">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WellnessApp - Daily Wellness Check</title>
+    <meta name="description" content="Daily wellness check for students">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/quezon-nhs-wellness/manifest.json">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#3367D6">
+    
+    <!-- Icons -->
+    <link rel="icon" href="/quezon-nhs-wellness/favicon.ico">
+    <link rel="apple-touch-icon" href="/quezon-nhs-wellness/icons/icon-192.png">
+    
+    <!-- iOS Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="WellnessApp">
+    
+    <!-- Microsoft Tile Color -->
+    <meta name="msapplication-TileColor" content="#3367D6">
+    
     <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 500px;
-            margin: 0 auto;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             padding: 20px;
-            background: #f0f8ff;
+            color: #333;
         }
+
         .container {
-            background: white;
-            padding: 30px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Student Banner */
+        .student-banner {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        .section {
-            display: none;
-            margin: 20px 0;
-        }
-        #section1 { display: block; }
-        .emotion-btn {
-            font-size: 20px;
-            padding: 12px 8px;
-            margin: 6px;
-            border: 2px solid #ddd;
-            background: white;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 90px;
-            height: 70px;
+            margin-bottom: 20px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            line-height: 1.2;
-        }
-        .emotion-btn.selected {
-            border-color: #4CAF50;
-            background: #e8f5e9;
-            transform: scale(1.05);
-        }
-        .emotion-emoji {
-            font-size: 24px;
-            margin-bottom: 4px;
-        }
-        .emotion-text {
-            font-size: 12px;
+            color: white;
             font-weight: bold;
+            font-size: 1.2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
-        .counselor-option {
-            padding: 15px;
-            margin: 10px;
-            background: #fff3e0;
-            border: 2px solid #ff9800;
-            border-radius: 10px;
-            cursor: pointer;
+
+        /* Wellness Card Styles */
+        .wellness-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             text-align: center;
-            font-size: 16px;
+            position: relative;
         }
-        .counselor-option.selected {
-            background: #ffecb3;
-            border-color: #ff6f00;
+
+        .wellness-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3367D6, #4285F4);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
         }
-        .urgent-warning {
-            background: #ffebee;
-            border: 2px solid #f44336;
-            color: #c62828;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
-            text-align: center;
-            display: none;
+
+        .wellness-card h2 {
+            color: #3367D6;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
         }
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: #4CAF50;
+
+        .last-tested {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .view-log-btn {
+            background: linear-gradient(135deg, #3367D6, #4285F4);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 18px;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(51, 103, 214, 0.4);
         }
-        .form-btn {
-            padding: 12px 20px;
-            background: #2196F3;
+
+        .view-log-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(51, 103, 214, 0.6);
+        }
+
+        .view-log-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Package Section Styles */
+        .package-section {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .package-section h3 {
+            color: #3367D6;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #34A853, #0F9D58);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            margin: 10px 0;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            transition: all 0.3s;
-        }
-        .form-btn:hover {
-            background: #1976D2;
-            transform: scale(1.05);
-        }
-        .urgent-btn {
-            background: #f44336;
-        }
-        .progress-bar {
             width: 100%;
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 4px;
-            margin: 20px 0;
+            margin-bottom: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(52, 168, 83, 0.4);
         }
-        .progress {
-            height: 100%;
-            background: #4CAF50;
-            border-radius: 4px;
-            width: 25%;
-            transition: width 0.5s;
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 168, 83, 0.6);
         }
-        .tip-box {
-            background: #e8f5e9;
-            padding: 20px;
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Stores Section */
+        .stores-section {
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .stores-section h4 {
+            color: #3367D6;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .store-icons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .store-icon {
+            width: 40px;
+            height: 40px;
+            background: #f5f5f5;
             border-radius: 10px;
-            margin: 20px 0;
-            border-left: 5px solid #4CAF50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #666;
+            font-size: 0.8rem;
         }
-        .crisis-resources {
-            background: #e3f2fd;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            font-size: 14px;
+
+        .stores-section p {
+            color: #666;
+            font-size: 0.9rem;
         }
-        .hidden-form {
-            display: none;
-        }
-        .emotions-grid {
+
+        /* Features Grid */
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            justify-items: center;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
             margin: 20px 0;
         }
-        .form-instructions {
-            background: #fff3e0;
+
+        .feature-item {
+            background: #f8f9fa;
             padding: 15px;
             border-radius: 10px;
-            margin: 15px 0;
-            border-left: 4px solid #ff9800;
             text-align: center;
         }
-        .form-preview {
-            background: #f8f9fa;
-            padding: 12px;
-            border-radius: 8px;
-            margin: 15px 0;
-            font-size: 14px;
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #FF6B6B, #EE5A24);
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
         }
-        .button-container {
-            text-align: center;
-            margin: 20px 0;
+
+        .feature-item span {
+            font-size: 0.8rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .wellness-card, .package-section {
+                padding: 20px;
+            }
+            
+            .student-banner {
+                height: 120px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+            position: relative;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-right-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Status Indicators */
+        .status-online {
+            color: #34A853;
+        }
+
+        .status-offline {
+            color: #EA4335;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 style="font-size: 23px; text-align: center;">🌞 Quezon NHS Daily Wellness Check</h1>
-        
-        <!-- Progress Bar -->
-        <div class="progress-bar">
-            <div class="progress" id="progress"></div>
+        <header>
+            <h1>WellnessApp</h1>
+            <p>Daily wellness check for students</p>
+        </header>
+
+        <div class="student-banner">
+            Student Health & Wellness Portal
         </div>
 
-        <!-- SECTION 1: Emotion Selection -->
-        <div id="section1" class="section">
-            <h3>How are you feeling today?</h3>
-            <div class="emotions-grid">
-                <button class="emotion-btn" onclick="selectEmotion('happy', this)">
-                    <div class="emotion-emoji">😊</div>
-                    <div class="emotion-text">Happy</div>
-                </button>
-                <button class="emotion-btn" onclick="selectEmotion('okay', this)">
-                    <div class="emotion-emoji">😐</div>
-                    <div class="emotion-text">Okay</div>
-                </button>
-                <button class="emotion-btn" onclick="selectEmotion('sad', this)">
-                    <div class="emotion-emoji">😢</div>
-                    <div class="emotion-text">Sad</div>
-                </button>
-                <button class="emotion-btn" onclick="selectEmotion('angry', this)">
-                    <div class="emotion-emoji">😠</div>
-                    <div class="emotion-text">Angry</div>
-                </button>
-                <button class="emotion-btn" onclick="selectEmotion('anxious', this)">
-                    <div class="emotion-emoji">😰</div>
-                    <div class="emotion-text">Anxious</div>
-                </button>
-                <button class="emotion-btn" onclick="selectEmotion('stressed', this)">
-                    <div class="emotion-emoji">😫</div>
-                    <div class="emotion-text">Stressed</div>
-                </button>
-            </div>
-        </div>
-
-        <!-- SECTION 2: Counselor Support -->
-        <div id="section2" class="section">
-            <h3>Would you like to talk to a counselor?</h3>
-            
-            <div class="counselor-option" onclick="selectCounselorOption('no', this)">
-                <strong>No, I'm okay for now</strong><br>
-                <small>I can handle things on my own</small>
-            </div>
-            
-            <div class="counselor-option" onclick="selectCounselorOption('maybe', this)">
-                <strong>Maybe later</strong><br>
-                <small>I might want to talk another time</small>
-            </div>
-            
-            <div class="counselor-option" onclick="selectCounselorOption('yes', this)">
-                <strong>Yes, I'd like to talk</strong><br>
-                <small>A counselor can reach out to me</small>
-            </div>
-            
-            <div class="counselor-option" onclick="selectCounselorOption('urgent', this)">
-                <strong>🆘 I need to talk soon</strong><br>
-                <small>This feels important or urgent</small>
+        <main>
+            <div class="wellness-card">
+                <div class="wellness-icon">❤️</div>
+                <h2>Share Wellness Score</h2>
+                <p class="last-tested">Last tested <span id="time-ago">seconds ago</span></p>
+                <button class="view-log-btn">View Health Log</button>
             </div>
 
-            <div class="urgent-warning" id="urgentWarning">
-                ⚠️ <strong>Important:</strong> If you're in crisis or need immediate help, please go directly to the Guidance Office or tell a teacher right away.
-            </div>
-
-            <div class="crisis-resources">
-                <strong>Always Available:</strong><br>
-                • Guidance Office<br>
-                • Trusted Teacher: Any teacher you feel comfortable with<br>
-                • Emergency: Go to Principal's Office
-            </div>
-
-            <button class="submit-btn" onclick="goToSection(3)">Continue</button>
-        </div>
-
-        <!-- SECTION 3: Quick Coping Tip & Form Link -->
-        <div id="section3" class="section">
-            <h3>Your Personalized Wellness Tip</h3>
-            <div class="tip-box" id="wellnessTip">
-                Loading your personalized tip...
-            </div>
-            
-            <div id="counselorMessage" style="display: none;">
-                <div class="tip-box" style="background: #fff3e0; border-left-color: #ff9800;">
-                    <strong>📞 Counselor Note:</strong><br>
-                    <span id="counselorResponseText"></span>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <span>Health Reports</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔔</div>
+                    <span>Notifications</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏥</div>
+                    <span>Clinic Info</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📚</div>
+                    <span>Resources</span>
                 </div>
             </div>
 
-            <!-- NEW: GOOGLE FORM SUBMISSION SECTION -->
-            <div class="form-instructions">
-                <h4>📋 Final Step: Submit to Counselors</h4>
+            <div class="package-section">
+                <h3>Student Wellness Package</h3>
+                <button class="download-btn">Download Test Package</button>
                 
-                <div class="form-preview">
-                    <strong>Your responses:</strong><br>
-                    • Emotion: <span id="previewEmotion"></span><br>
-                    • Counselor: <span id="previewCounselor"></span>
+                <div class="stores-section">
+                    <h4>Available stores:</h4>
+                    <div class="store-icons">
+                        <div class="store-icon">App Store</div>
+                        <div class="store-icon">Play Store</div>
+                        <div class="store-icon">Web</div>
+                    </div>
+                    <p>Filter through notifications</p>
                 </div>
-                
-                <p>Click below to open the counselor form:</p>
-                
-                <div class="button-container">
-                    <a href="#" class="form-btn" id="googleFormLink" target="_blank">
-                        📤 Open Counselor Form
-                    </a>
-                </div>
-                
-                <p><small>This opens Google Forms in a new tab. Click "Submit" on that page.</small></p>
             </div>
-
-            <button class="submit-btn" onclick="submitCheckin()">Continue</button>
-        </div>
-
-        <!-- SECTION 4: Confirmation -->
-        <div id="section4" class="section">
-            <div style="text-align: center; padding: 30px;">
-                <div style="font-size: 60px; margin: 20px;">✅</div>
-                <h2>Check-in Complete!</h2>
-                
-                <div class="tip-box">
-                    <strong>Today's Summary:</strong><br>
-                    Emotion: <span id="summaryEmotion"></span><br>
-                    Counselor Request: <span id="summaryCounselor"></span>
-                </div>
-
-                <div id="urgentFollowup" style="display: none; background: #fff3e0; padding: 15px; border-radius: 10px; margin: 15px 0;">
-                    <strong>🚨 Important Next Steps:</strong><br>
-                    A counselor will contact you <strong>today</strong>. Please check your student portal or listen for announcements.
-                </div>
-
-                <div id="regularFollowup" style="display: none; background: #e3f2fd; padding: 15px; border-radius: 10px; margin: 15px 0;">
-                    <strong>📅 Follow-up:</strong><br>
-                    If you requested to talk, a counselor will reach out within 2 school days.
-                </div>
-
-                <p><small>Your well-being matters to us. Thank you for sharing.</small></p>
-                <button class="submit-btn" onclick="resetForm()">Done</button>
-            </div>
-        </div>
+        </main>
     </div>
 
+    <!-- Service Worker Registration -->
     <script>
-        let checkinData = {
-            emotion: '',
-            counselorRequest: '',
-            timestamp: '',
-            urgency: 'normal'
-        };
-
-        function selectEmotion(emotion, element) {
-            document.querySelectorAll('.emotion-btn').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            element.classList.add('selected');
-            checkinData.emotion = emotion;
-            
-            setTimeout(() => {
-                showSection(2);
-                updateProgress(50);
-            }, 500);
-        }
-
-        function selectCounselorOption(choice, element) {
-            document.querySelectorAll('.counselor-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            element.classList.add('selected');
-            checkinData.counselorRequest = choice;
-            
-            // Show/hide urgent warning
-            const urgentWarning = document.getElementById('urgentWarning');
-            if (choice === 'urgent') {
-                urgentWarning.style.display = 'block';
-                checkinData.urgency = 'high';
-            } else {
-                urgentWarning.style.display = 'none';
-                checkinData.urgency = 'normal';
-            }
-        }
-
-        function showSection(sectionNum) {
-            document.querySelectorAll('.section').forEach(section => {
-                section.style.display = 'none';
-            });
-            document.getElementById('section' + sectionNum).style.display = 'block';
-            
-            if (sectionNum === 3) {
-                generateWellnessTip();
-                showCounselorMessage();
-                setupGoogleFormLink(); // NEW: Setup the form link
-            }
-        }
-
-        function goToSection(sectionNum) {
-            if (sectionNum === 3 && !checkinData.counselorRequest) {
-                alert('Please select an option about counselor support.');
-                return;
-            }
-            showSection(sectionNum);
-            updateProgress(sectionNum * 25);
-        }
-
-        function updateProgress(percent) {
-            document.getElementById('progress').style.width = percent + '%';
-        }
-
-        function generateWellnessTip() {
-            const tips = {
-                happy: "🌟 <strong>Spread the joy!</strong> Your positivity is contagious. Share a smile or compliment with someone today.",
-                okay: "⚖️ <strong>Embrace the balance.</strong> Steady days are building blocks for growth.",
-                sad: "🌧️ <strong>Be gentle with yourself.</strong> It's okay to feel this way. Try listening to your favorite song.",
-                angry: "🔥 <strong>Channel that energy!</strong> Try writing down what's bothering you, then tear it up.",
-                anxious: "🌬️ <strong>Ground yourself.</strong> Breathe in for 4 counts, hold for 4, breathe out for 6.",
-                stressed: "📝 <strong>Break it down.</strong> Make a list of everything on your mind, then tackle just one small thing first."
-            };
-            
-            const tip = tips[checkinData.emotion] || "💫 <strong>Take a mindful moment.</strong> Breathe deeply 3 times and notice your surroundings.";
-            document.getElementById('wellnessTip').innerHTML = tip;
-        }
-
-        function showCounselorMessage() {
-            const counselorMessage = document.getElementById('counselorMessage');
-            const counselorText = document.getElementById('counselorResponseText');
-
-            const messages = {
-                'no': "We're glad you're feeling supported. Remember, counselors are always available if you change your mind.",
-                'maybe': "That's perfectly okay. Counselors are here whenever you're ready to talk.",
-                'yes': "Thank you for reaching out. A counselor will contact you soon to schedule a conversation.",
-                'urgent': "We take this seriously. A counselor will reach out to you TODAY. Please wait for their contact."
-            };
-
-            if (checkinData.counselorRequest && checkinData.counselorRequest !== 'no') {
-                counselorText.textContent = messages[checkinData.counselorRequest];
-                counselorMessage.style.display = 'block';
-            } else {
-                counselorMessage.style.display = 'none';
-            }
-        }
-
-        // NEW FUNCTION: Setup Google Form link with pre-filled data
-        function setupGoogleFormLink() {
-            const formLink = document.getElementById('googleFormLink');
-            const previewEmotion = document.getElementById('previewEmotion');
-            const previewCounselor = document.getElementById('previewCounselor');
-            
-            // Show preview of what will be submitted
-            previewEmotion.textContent = checkinData.emotion;
-            
-            const counselorTexts = {
-                'no': 'No counselor needed',
-                'maybe': 'Might talk later', 
-                'yes': 'Would like to talk',
-                'urgent': 'NEEDS TO TALK SOON'
-            };
-            previewCounselor.textContent = counselorTexts[checkinData.counselorRequest];
-            
-            // ⭐⭐⭐ REPLACE THIS URL WITH YOUR ACTUAL GOOGLE FORM URL ⭐⭐⭐
-            const baseFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfD_E3b_J9zOg68ooPxqLqfP_8QMssn1_tzyQdUFxeTd9Vz9A/viewform";
-            const prefillParams = `?entry.123456789=${encodeURIComponent(checkinData.emotion)}&entry.987654321=${encodeURIComponent(checkinData.counselorRequest)}&entry.1122334455=${encodeURIComponent(checkinData.urgency)}`;
-            
-            formLink.href = baseFormURL + prefillParams;
-        }
-
-        function submitCheckin() {
-            // Add timestamp
-            checkinData.timestamp = new Date().toLocaleString();
-            
-            // Show summary
-            document.getElementById('summaryEmotion').textContent = checkinData.emotion;
-            
-            const counselorTexts = {
-                'no': 'No counselor needed',
-                'maybe': 'Might talk later', 
-                'yes': 'Would like to talk',
-                'urgent': 'NEEDS TO TALK SOON'
-            };
-            document.getElementById('summaryCounselor').textContent = counselorTexts[checkinData.counselorRequest];
-
-            // Show appropriate follow-up message
-            if (checkinData.counselorRequest === 'urgent') {
-                document.getElementById('urgentFollowup').style.display = 'block';
-            } else if (checkinData.counselorRequest === 'yes' || checkinData.counselorRequest === 'maybe') {
-                document.getElementById('regularFollowup').style.display = 'block';
-            }
-
-            showSection(4);
-            updateProgress(100);
-        }
-
-        function resetForm() {
-            checkinData = { emotion: '', counselorRequest: '', timestamp: '', urgency: 'normal' };
-            document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
-            document.getElementById('urgentWarning').style.display = 'none';
-            showSection(1);
-            updateProgress(25);
-        }
-
-        // Initialize
-        updateProgress(25);
-
-        // ✅ ADDED: Service Worker Registration
+        // Register Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
                 navigator.serviceWorker.register('/quezon-nhs-wellness/sw.js')
                     .then(function(registration) {
-                        console.log('ServiceWorker registration successful');
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                        document.body.classList.add('status-online');
                     })
                     .catch(function(error) {
                         console.log('ServiceWorker registration failed: ', error);
+                        document.body.classList.add('status-offline');
                     });
             });
         }
+
+        // Unregister any old service workers (cleanup)
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for (let registration of registrations) {
+                if (registration.scope !== 'https://jhaeyzh-a11y.github.io/quezon-nhs-wellness/') {
+                    registration.unregister();
+                    console.log('Unregistered old service worker: ', registration.scope);
+                }
+            }
+        });
+
+        // Update time ago display
+        function updateTimeAgo() {
+            const timeAgoElement = document.getElementById('time-ago');
+            if (timeAgoElement) {
+                const lastTested = localStorage.getItem('lastTested');
+                if (lastTested) {
+                    const diff = Math.floor((Date.now() - parseInt(lastTested)) / 1000);
+                    if (diff < 60) {
+                        timeAgoElement.textContent = `${diff} seconds ago`;
+                    } else if (diff < 3600) {
+                        timeAgoElement.textContent = `${Math.floor(diff / 60)} minutes ago`;
+                    } else {
+                        timeAgoElement.textContent = `${Math.floor(diff / 3600)} hours ago`;
+                    }
+                } else {
+                    timeAgoElement.textContent = 'seconds ago';
+                    localStorage.setItem('lastTested', Date.now().toString());
+                }
+            }
+        }
+
+        // Simulate wellness test
+        function simulateWellnessTest() {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(btn => btn.classList.add('loading'));
+            
+            setTimeout(() => {
+                buttons.forEach(btn => btn.classList.remove('loading'));
+                localStorage.setItem('lastTested', Date.now().toString());
+                updateTimeAgo();
+                alert('Wellness test completed successfully! Your health score has been updated.');
+            }, 1500);
+        }
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTimeAgo();
+            
+            // Add event listeners for buttons
+            const viewLogBtn = document.querySelector('.view-log-btn');
+            const downloadBtn = document.querySelector('.download-btn');
+            
+            if (viewLogBtn) {
+                viewLogBtn.addEventListener('click', function() {
+                    simulateWellnessTest();
+                });
+            }
+            
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                        alert('Student Wellness Package download started!');
+                    }, 2000);
+                });
+            }
+
+            // Update time every minute
+            setInterval(updateTimeAgo, 60000);
+        });
+
+        // Online/Offline detection
+        window.addEventListener('online', function() {
+            document.body.classList.remove('status-offline');
+            document.body.classList.add('status-online');
+        });
+
+        window.addEventListener('offline', function() {
+            document.body.classList.remove('status-online');
+            document.body.classList.add('status-offline');
+        });
     </script>
 </body>
 </html>
