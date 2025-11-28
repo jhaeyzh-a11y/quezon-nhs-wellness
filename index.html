@@ -3,29 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WellnessApp - Daily Wellness Check</title>
-    <meta name="description" content="Daily wellness check for students">
+    <title>WellnessApp - Quezon NHS Student Health</title>
+    <meta name="description" content="Daily wellness check for Quezon National High School students">
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="/quezon-nhs-wellness/manifest.json">
+    <link rel="manifest" href="manifest.json">
     
     <!-- Theme Color -->
     <meta name="theme-color" content="#3367D6">
     
     <!-- Icons -->
-    <link rel="icon" href="/quezon-nhs-wellness/favicon.ico">
-    <link rel="apple-touch-icon" href="/quezon-nhs-wellness/icons/icon-192.png">
+    <link rel="icon" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
     
     <!-- iOS Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="WellnessApp">
     
-    <!-- Microsoft Tile Color -->
-    <meta name="msapplication-TileColor" content="#3367D6">
-    
     <style>
-        /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -33,7 +29,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
@@ -45,7 +41,6 @@
             margin: 0 auto;
         }
 
-        /* Header Styles */
         header {
             text-align: center;
             margin-bottom: 30px;
@@ -53,70 +48,59 @@
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         header p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.9;
         }
 
-        /* Student Banner */
-        .student-banner {
-            width: 100%;
-            height: 150px;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');
-            background-size: cover;
-            background-position: center;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        .school-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
         }
 
-        /* Wellness Card Styles */
         .wellness-card {
             background: white;
             border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 25px;
+            padding: 25px;
+            margin-bottom: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             text-align: center;
-            position: relative;
         }
 
         .wellness-icon {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             background: linear-gradient(135deg, #3367D6, #4285F4);
             border-radius: 50%;
-            margin: 0 auto 20px;
+            margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
 
         .wellness-card h2 {
             color: #3367D6;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
+            margin-bottom: 12px;
+            font-size: 1.3rem;
         }
 
         .last-tested {
             color: #666;
             margin-bottom: 20px;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
         .view-log-btn {
@@ -128,120 +112,32 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 15px rgba(51, 103, 214, 0.4);
+            transition: transform 0.2s;
+            width: 100%;
         }
 
         .view-log-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(51, 103, 214, 0.6);
         }
 
-        .view-log-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Package Section Styles */
-        .package-section {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .package-section h3 {
-            color: #3367D6;
-            margin-bottom: 15px;
-            text-align: center;
-            font-size: 1.3rem;
-        }
-
-        .download-btn {
-            background: linear-gradient(135deg, #34A853, #0F9D58);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            margin-bottom: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 15px rgba(52, 168, 83, 0.4);
-        }
-
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(52, 168, 83, 0.6);
-        }
-
-        .download-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Stores Section */
-        .stores-section {
-            border-top: 1px solid #eee;
-            padding-top: 20px;
-        }
-
-        .stores-section h4 {
-            color: #3367D6;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-
-        .store-icons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .store-icon {
-            width: 40px;
-            height: 40px;
-            background: #f5f5f5;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #666;
-            font-size: 0.8rem;
-        }
-
-        .stores-section p {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        /* Features Grid */
         .features-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 12px;
             margin: 20px 0;
         }
 
         .feature-item {
             background: #f8f9fa;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 12px;
             text-align: center;
+            border: 1px solid #e9ecef;
         }
 
         .feature-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #FF6B6B, #EE5A24);
-            border-radius: 50%;
-            margin: 0 auto 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
         }
 
         .feature-item span {
@@ -250,58 +146,84 @@
             font-weight: 500;
         }
 
-        /* Responsive Design */
+        .package-section {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .package-section h3 {
+            color: #3367D6;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #34A853, #0F9D58);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 15px;
+            transition: transform 0.2s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .stores-section h4 {
+            color: #3367D6;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .store-icons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .store-icon {
+            flex: 1;
+            background: #f5f5f5;
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .stores-section p {
+            color: #666;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
         @media (max-width: 480px) {
             body {
                 padding: 15px;
             }
             
             header h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             .wellness-card, .package-section {
                 padding: 20px;
             }
-            
-            .student-banner {
-                height: 120px;
-                font-size: 1rem;
-            }
         }
 
-        /* Loading Animation */
         .loading {
             opacity: 0.7;
             pointer-events: none;
-            position: relative;
-        }
-
-        .loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            margin: -10px 0 0 -10px;
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            border-right-color: transparent;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Status Indicators */
-        .status-online {
-            color: #34A853;
-        }
-
-        .status-offline {
-            color: #EA4335;
         }
     </style>
 </head>
@@ -310,11 +232,8 @@
         <header>
             <h1>WellnessApp</h1>
             <p>Daily wellness check for students</p>
+            <div class="school-badge">Quezon National High School</div>
         </header>
-
-        <div class="student-banner">
-            Student Health & Wellness Portal
-        </div>
 
         <main>
             <div class="wellness-card">
@@ -331,11 +250,11 @@
                 </div>
                 <div class="feature-item">
                     <div class="feature-icon">🔔</div>
-                    <span>Notifications</span>
+                    <span>Alerts</span>
                 </div>
                 <div class="feature-item">
                     <div class="feature-icon">🏥</div>
-                    <span>Clinic Info</span>
+                    <span>Clinic</span>
                 </div>
                 <div class="feature-item">
                     <div class="feature-icon">📚</div>
@@ -360,104 +279,59 @@
         </main>
     </div>
 
-    <!-- Service Worker Registration -->
     <script>
         // Register Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
                 navigator.serviceWorker.register('/quezon-nhs-wellness/sw.js')
                     .then(function(registration) {
-                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                        document.body.classList.add('status-online');
+                        console.log('SW registered: ', registration.scope);
                     })
                     .catch(function(error) {
-                        console.log('ServiceWorker registration failed: ', error);
-                        document.body.classList.add('status-offline');
+                        console.log('SW failed: ', error);
                     });
             });
         }
 
-        // Unregister any old service workers (cleanup)
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-            for (let registration of registrations) {
-                if (registration.scope !== 'https://jhaeyzh-a11y.github.io/quezon-nhs-wellness/') {
-                    registration.unregister();
-                    console.log('Unregistered old service worker: ', registration.scope);
-                }
-            }
-        });
-
-        // Update time ago display
+        // Update time display
         function updateTimeAgo() {
             const timeAgoElement = document.getElementById('time-ago');
             if (timeAgoElement) {
                 const lastTested = localStorage.getItem('lastTested');
                 if (lastTested) {
                     const diff = Math.floor((Date.now() - parseInt(lastTested)) / 1000);
-                    if (diff < 60) {
-                        timeAgoElement.textContent = `${diff} seconds ago`;
-                    } else if (diff < 3600) {
-                        timeAgoElement.textContent = `${Math.floor(diff / 60)} minutes ago`;
-                    } else {
-                        timeAgoElement.textContent = `${Math.floor(diff / 3600)} hours ago`;
-                    }
+                    if (diff < 60) timeAgoElement.textContent = `${diff} seconds ago`;
+                    else if (diff < 3600) timeAgoElement.textContent = `${Math.floor(diff / 60)} minutes ago`;
+                    else timeAgoElement.textContent = `${Math.floor(diff / 3600)} hours ago`;
                 } else {
-                    timeAgoElement.textContent = 'seconds ago';
-                    localStorage.setItem('lastTested', Date.now().toString());
+                    timeAgoElement.textContent = 'never';
                 }
             }
         }
 
-        // Simulate wellness test
-        function simulateWellnessTest() {
-            const buttons = document.querySelectorAll('button');
-            buttons.forEach(btn => btn.classList.add('loading'));
-            
-            setTimeout(() => {
-                buttons.forEach(btn => btn.classList.remove('loading'));
-                localStorage.setItem('lastTested', Date.now().toString());
-                updateTimeAgo();
-                alert('Wellness test completed successfully! Your health score has been updated.');
-            }, 1500);
-        }
-
-        // Initialize app
+        // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
             updateTimeAgo();
             
-            // Add event listeners for buttons
-            const viewLogBtn = document.querySelector('.view-log-btn');
-            const downloadBtn = document.querySelector('.download-btn');
+            document.querySelector('.view-log-btn').addEventListener('click', function() {
+                this.classList.add('loading');
+                setTimeout(() => {
+                    this.classList.remove('loading');
+                    localStorage.setItem('lastTested', Date.now().toString());
+                    updateTimeAgo();
+                    alert('Wellness check completed! Score shared successfully.');
+                }, 1500);
+            });
             
-            if (viewLogBtn) {
-                viewLogBtn.addEventListener('click', function() {
-                    simulateWellnessTest();
-                });
-            }
-            
-            if (downloadBtn) {
-                downloadBtn.addEventListener('click', function() {
-                    this.classList.add('loading');
-                    setTimeout(() => {
-                        this.classList.remove('loading');
-                        alert('Student Wellness Package download started!');
-                    }, 2000);
-                });
-            }
+            document.querySelector('.download-btn').addEventListener('click', function() {
+                this.classList.add('loading');
+                setTimeout(() => {
+                    this.classList.remove('loading');
+                    alert('Wellness Package download started!');
+                }, 2000);
+            });
 
-            // Update time every minute
             setInterval(updateTimeAgo, 60000);
-        });
-
-        // Online/Offline detection
-        window.addEventListener('online', function() {
-            document.body.classList.remove('status-offline');
-            document.body.classList.add('status-online');
-        });
-
-        window.addEventListener('offline', function() {
-            document.body.classList.remove('status-online');
-            document.body.classList.add('status-offline');
         });
     </script>
 </body>
