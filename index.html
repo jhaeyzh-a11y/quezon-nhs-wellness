@@ -2,6 +2,9 @@
 <html>
 <head>
     <title>Quezon NHS Daily Wellness Check</title>
+    <!-- ADD MANIFEST LINK -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -468,6 +471,19 @@
 
         // Initialize
         updateProgress(25);
+
+        // ✅ ADDED: Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/quezon-nhs-wellness/sw.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(function(error) {
+                        console.log('ServiceWorker registration failed: ', error);
+                    });
+            });
+        }
     </script>
 </body>
 </html>
