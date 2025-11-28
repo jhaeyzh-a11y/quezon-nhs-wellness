@@ -1,10 +1,25 @@
 {
-  "name": "WellnessApp",
+  "name": "WellnessApp - Student Health Check",
   "short_name": "WellnessApp",
-  "start_url": "https://jhaeyzh-a11y.github.io/quezon-nhs-wellness/",
+  "description": "Daily wellness check for Quezon NHS students",
+  "start_url": "/quezon-nhs-wellness/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
-  "scope": "https://jhaeyzh-a11y.github.io/quezon-nhs-wellness/",
-  // ... other manifest properties
+  "background_color": "#3367D6",
+  "theme_color": "#3367D6",
+  "scope": "/quezon-nhs-wellness/",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "health"]
 }
